@@ -57,7 +57,7 @@ python main.py
 http://127.0.0.1:5000/
 ``` 
 4. **Upload a CSV file:** 
-- Click on the 'Upload CSV' button and select your CSV file. 
+- Click on the 'Upload CSV' button and select your CSV file **The names must be under the column 'Name'**. 
 5. **Upload a PDF template file:** 
 - Click on the 'Upload Template' button and select your PDF template file. 
 6. **Generate and download certificates:** 
