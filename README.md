@@ -91,4 +91,4 @@ The application automatically cleans up uploaded files and generated certificate
 Feel free to open issues or submit pull requests with any enhancements or bug fixes.
 
 ## Where to find me
-[Linked in](https://www.linkedin.com/in/rayan-ghabashi)
+[Linked in](https://www.linkedin.com/in/rayan-ghabashi){:target="_blank"}
