@@ -1,0 +1,6 @@
+Flask==3.0.3
+pandas==2.2.2
+reportlab==4.0.5
+arabic_reshaper==2.1.3
+python-bidi==0.4.2
+werkzeug==3.0.0
