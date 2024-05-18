@@ -88,6 +88,7 @@ The application automatically cleans up uploaded files and generated certificate
 - setting the x and y coordinates
 - Support for multiple font options.
 - Improved error handling and user feedback.
+- requirements.txt
 ### Contributing
 
 Feel free to open issues or submit pull requests with any enhancements or bug fixes.
