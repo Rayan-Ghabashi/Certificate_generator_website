@@ -99,22 +99,21 @@ def download_file():
 
 def certificate_generator(csv_file, template_file):
     
-    '''
-        future feature multiple fonts
-    '''
     pdfmetrics.registerFont(TTFont('NotoSansArabic', fontpath))
     df = pd.read_csv(csv_file)
     template_file_path = os.path.join(template_file)
     for index, row in df.iterrows():
-        name = row['Name']
-        if(check_name_language(name)=='Arabic'):
-            reshaped_text = arabic_reshaper.reshape(name)  # Reshape if Arabic
+        display_name = row['Name']
+        name =''
+        if(check_name_language(display_name)=='Arabic'):
+            reshaped_text = arabic_reshaper.reshape(display_name)  # Reshape if Arabic
             name = get_display(reshaped_text)
             fontname = 'NotoSansArabic'
         else:
+            name = display_name
             fontname = 'Times-BoldItalic'
         
-        output_path =f"Generated_certificates/certificate_{name}.pdf"
+        output_path =f"Generated_certificates/certificate_{display_name}.pdf"
         create_certificate(name,template_file_path,output_path,fontname)
 
     return 'Generated_certificates'
