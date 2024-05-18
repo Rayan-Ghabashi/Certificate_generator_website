@@ -84,6 +84,8 @@ The application logs debug messages for key actions such as file uploads and pro
 
 The application automatically cleans up uploaded files and generated certificates when it exits. This is handled through the `atexit` module and signal handlers for SIGINT and SIGTERM.
 ### Future Enhancements
+- preview support
+- setting the x and y coordinates
 - Support for multiple font options.
 - Improved error handling and user feedback.
 ### Contributing
