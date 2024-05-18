@@ -42,10 +42,11 @@ Ensure you have the correct path to the font file in `configuration.py`:
 fontpath = 'path/to/your/font/NotoSansArabic.ttf'
 ```
 ### Usage 
-1. **Run the application:** 
+1.**open app folder**
+2. **Run the application:** 
 
 ```bash
-python app.py
+python main.py
 ``` 
 2. **Open your browser and go to:** 
 
