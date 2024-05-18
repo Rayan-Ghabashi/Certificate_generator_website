@@ -43,21 +43,24 @@ fontpath = 'path/to/your/font/NotoSansArabic.ttf'
 ```
 ### Usage 
 1.**open app folder**
+```bash
+cd app
+``` 
 2. **Run the application:** 
 
 ```bash
 python main.py
 ``` 
-2. **Open your browser and go to:** 
+3. **Open your browser and go to:** 
 
 ```
 http://127.0.0.1:5000/
 ``` 
-3. **Upload a CSV file:** 
+4. **Upload a CSV file:** 
 - Click on the 'Upload CSV' button and select your CSV file. 
-4. **Upload a PDF template file:** 
+5. **Upload a PDF template file:** 
 - Click on the 'Upload Template' button and select your PDF template file. 
-5. **Generate and download certificates:** 
+6. **Generate and download certificates:** 
 - Click the 'Generate Certificates' button to process the files.
 - Download the ZIP file containing the generated certificates.
 ### Application Structure 
