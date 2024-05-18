@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload and Download</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Lato|Montserrat|Cairo&display=swap">
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+    .file-upload {
+      margin-bottom: 20px;
+    }
+    .image-preview {
+      width: 100%;
+      height: 200px;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-success" role="alert">
+              {{ messages[0] }}
+            </div>
+          {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Upload Files</h4>
+        <div class="file-upload">
+          <form id="csv-upload-form" action="/upload_csv" method="post" enctype="multipart/form-data">
+            <input type="file" name="csv" id="csv-input" style="display: none;">
+            <button type="button" class="btn btn-dark btn-block" onclick="document.getElementById('csv-input').click();">Upload CSV</button>
+          </form>
+          <form id="template-upload-form" action="/upload_template" method="post" enctype="multipart/form-data">
+            <input type="file" name="template" id="template-input" style="display: none;">
+            <button type="button" class="btn btn-dark btn-block mt-2" onclick="document.getElementById('template-input').click();">Upload Template</button>
+          </form>
+        </div>
+        <div class="form-group">
+          <label for="english-font">English Font</label>
+          <select class="form-control" id="english-font" onchange="updateFont('english')">
+            <option value="Roboto">Roboto</option>
+            <option value="Lato">Lato</option>
+            <option value="Montserrat">Montserrat</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="arabic-font">Arabic Font</label>
+          <select class="form-control" id="arabic-font" onchange="updateFont('arabic')">
+            <option value="Cairo">Cairo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Image Position</label>
+          <div class="d-flex">
+            <input type="text" class="form-control mr-2" id="pos-x" placeholder="X">
+            <input type="text" class="form-control" id="pos-y" placeholder="Y">
+          </div>
+        </div>
+        <div class="image-preview">
+          <img id="image-preview" src="/static/image.png" alt="Preview" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h4>Download File</h4>
+        <form id="template-upload-form" action="/download_file" method="post" enctype="multipart/form-data">
+        <button id="download-button" class="btn btn-dark btn-block">Download File</button>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function updateFont(language) {
+      const englishFont = document.getElementById('english-font').value;
+      const arabicFont = document.getElementById('arabic-font').value;
+      const imagePreview = document.getElementById('image-preview');
+
+      if (language === 'english') {
+        imagePreview.style.fontFamily = englishFont;
+      } else if (language === 'arabic') {
+        imagePreview.style.fontFamily = arabicFont;
+      }
+    }
+
+    document.getElementById('csv-input').addEventListener('change', function() {
+      document.getElementById('csv-upload-form').submit();
+    });
+
+    document.getElementById('template-input').addEventListener('change', function() {
+      document.getElementById('template-upload-form').submit();
+    });
+
+    document.getElementById('download-button').addEventListener('click', function() {
+      const posX = document.getElementById('pos-x').value;
+      const posY = document.getElementById('pos-y').value;
+
+      fetch('/download_file', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ posX: posX, posY: posY })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('File processed successfully');
+        } else {
+          alert('File processing failed');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
