@@ -114,7 +114,10 @@ def certificate_generator(csv_file, template_file):
             fontname = 'Times-BoldItalic'
         
         output_path =f"Generated_certificates/certificate_{display_name}.pdf"
-        create_certificate(name,template_file_path,output_path,fontname)
+        
+        #future adjustments add color changes
+        color = 'white'
+        create_certificate(name,template_file_path,output_path,fontname,color)
 
     return 'Generated_certificates'
 def check_name_language(name):

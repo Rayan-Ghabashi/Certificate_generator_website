@@ -4,7 +4,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import io
 
-def create_certificate(name,  template_path, output_path, font):
+def create_certificate(name,  template_path, output_path, font,color):
     try:
         packet = io.BytesIO()
         c = canvas.Canvas(packet, pagesize=letter)
