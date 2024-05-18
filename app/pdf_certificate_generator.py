@@ -11,7 +11,7 @@ def create_certificate(name,  template_path, output_path, font,color):
         width, height = letter
 
         c.setFont(font, 30)
-        c.setFillColor('white')
+        c.setFillColor(color)
         c.drawCentredString(width/1.43, height/2.56, name)
         c.save()
 
