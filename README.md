@@ -3,8 +3,8 @@
 
 This is a Flask web application designed to handle the upload of CSV and PDF files, process them, and generate certificates. The certificates are created based on a given template and data provided in the CSV file. The application supports both Arabic and English languages.
 ### Features
-- Upload CSV files containing names and other details.
-- Upload PDF template files to be used for generating certificates.
+- Upload CSV file containing names and other details.
+- Upload PDF template file to be used for generating certificates.
 - Generate certificates for each entry in the CSV file.
 - Support for Arabic text rendering.
 - Download all generated certificates in a ZIP file.
