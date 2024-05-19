@@ -21,8 +21,8 @@ This is a Flask web application designed to handle the upload of CSV and PDF fil
 1. **Clone the repository:** 
 
 ```bash
-git clone https://github.com/your-repo/flask-certificate-generator.git
-cd flask-certificate-generator
+git clone https://github.com/Rayan-Ghabashi/Certificate_generator_website.git
+cd Certificate_generator_website
 ``` 
 2. **Create and activate a virtual environment:** 
 
