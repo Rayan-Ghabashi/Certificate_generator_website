@@ -1,19 +1,22 @@
-from flask import Flask, request, send_file, redirect, url_for, render_template, flash
-import os
-from werkzeug.utils import secure_filename
-import logging
-import pandas as pd
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfmetrics
-import io
-import arabic_reshaper
-from bidi.algorithm import get_display
-from pdf_certificate_generator import create_certificate
-from configuration import fontpath
-import zipfile
 import atexit
-import signal
+import io
+import logging
+import os
 import shutil
+import signal
+import zipfile
+
+import arabic_reshaper
+import pandas as pd
+from bidi.algorithm import get_display
+from configuration import fontpath
+from flask import (Flask, flash, redirect, render_template, request, send_file,
+                   url_for)
+from pdf_certificate_generator import create_certificate
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -23,13 +26,14 @@ app.secret_key = 'supersecretkey'  # Needed for flashing messages
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 
 @app.route('/upload_csv', methods=['POST'])
@@ -52,8 +56,6 @@ def upload_csv():
     return redirect(request.url)
 
 
-
-
 @app.route('/upload_template', methods=['POST'])
 def upload_template():
     logging.debug('Received request to upload template')
@@ -72,8 +74,6 @@ def upload_template():
         return redirect(url_for('index'))
     flash('File type not allowed')
     return redirect(request.url)
-
-
 
 
 @app.route('/download_file', methods=['POST'])
@@ -96,7 +96,6 @@ def download_file():
     return send_file('output.zip', as_attachment=True)
     
     
-
 def certificate_generator(csv_file, template_file):
     
     pdfmetrics.registerFont(TTFont('NotoSansArabic', fontpath))
@@ -120,6 +119,8 @@ def certificate_generator(csv_file, template_file):
         create_certificate(name,template_file_path,output_path,fontname,color)
 
     return 'Generated_certificates'
+
+
 def check_name_language(name):
     arabic_count = sum(1 for char in name if '\u0600' <= char <= '\u06FF')
     english_count = sum(1 for char in name if 'A' <= char <= 'Z' or 'a' <= char <= 'z')
@@ -128,7 +129,8 @@ def check_name_language(name):
         return "Arabic"
     elif english_count > arabic_count:
         return "English"
-    
+
+
 def zip_folder(folder_path, output_zip):
     with zipfile.ZipFile(output_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(folder_path):
@@ -136,6 +138,8 @@ def zip_folder(folder_path, output_zip):
                 file_path = os.path.join(root, file)
                 arcname = os.path.relpath(file_path, start=folder_path)
                 zipf.write(file_path, arcname)
+
+
 def cleanup():
     print('Cleaning up...')
     # Remove the uploads directory and its contents
@@ -147,6 +151,7 @@ def cleanup():
     if(os.path.exists('output.zip')):
         os.remove('output.zip')
     print('Cleanup complete.')
+
 
 # Register the cleanup function to be called on exit
 atexit.register(cleanup)
