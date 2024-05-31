@@ -1,8 +1,9 @@
-# pdf_certificate_generator.py
+import io
+
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-import io
+
 
 def create_certificate(name,  template_path, output_path, font,color):
     try:
